@@ -1,4 +1,4 @@
-FROM store/appdynamics/java:4.5_jdk8-alpine
+FROM localhost:5000/store/appdynamics/java:4.5_jdk8-alpine
 RUN mkdir -p /opt/hello-world
 ENV HW_HOME=/opt/hello-world
 ADD helloworld.jar $HW_HOME/
@@ -11,4 +11,4 @@ ENV APPDYNAMICS_AGENT_TIER_NAME clienttier
 ENV APPDYNAMICS_AGENT_NODE_NAME clientnode
 ENV APPDYNAMICS_AGENT_ACCOUNT_NAME teresa2018110812282714
 ENV APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY kt91tpqvhsok
-ENTRYPOINT ["java", "-jar", "./helloworld.jar" , "-javaagent:/opt/appdynamics/javaagent.jar"]
+CMD ["java","-javaagent:/opt/appdynamics/javaagent.jar","-Dappdynamics.proxySet=true", "-Dappdynamics.http.proxyHost=136.75.167.117", "-Dappdynamics.http.proxyPort=3128", "-Dappdynamics.https.proxyHost=136.75.167.117", "-Dappdynamics.http.proxyPort=3128", "-jar", "./helloworld.jar"]
